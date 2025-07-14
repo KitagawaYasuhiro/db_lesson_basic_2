@@ -44,10 +44,14 @@ values
 (15,'ジャムパン1個で乗り切れるだろうか');
 
 第４問
-select * from people where departments_id >= 1;
+update people set departments_id = 2 where person_id = 1;
+update people set departments_id = 1 where person_id = 2;
+update people set departments_id = 4 where person_id = 3;
+update people set departments_id = 5 where person_id = 4;
+update people set departments_id = 3 where person_id = 5;
 
 第５問
-select * from people where gender = 1 order by age asc;
+select * from people where gender = 1 order by age desc;
 
 第６問
 peopleテーブルの中で部門idが1の人をname,email,ageのカラムで絞り作成順で表示する
@@ -56,13 +60,15 @@ peopleテーブルの中で部門idが1の人をname,email,ageのカラムで絞
 select * from people where (age between 20 and 29) and gender = 2 or (age between 40 and 49) and gender = 1;
 
 第８問
-select * from people where departments_id between 3 and 5 order by age asc;
+select * from people where departments_id = 1 order by age asc;
 
 第９問
 select *, avg(age) as average_age from people group by gender = 2 and departments_id = 2; 
 
 第１０問
-select p.person_id, p.name, r.content from people p join reports r using (person_id) where name like '%こ%';
+select p.name, d.name, r.content from people p 
+inner join departments d on p.departments_id = d.departments_id
+inner join reports r on p.person_id = r.person_id;
 
 第１１問
 select p.person_id, p.name, r.content from people p left outer join 
